@@ -2,7 +2,7 @@
     <div class="container">
       <table>
        <tr class="t-header">
-         <th>采购结案</th>
+         <th class="t-item">采购结案</th>
          <th>采购合同主数量</th>
          <th>采购合同月份</th>
          <th>项目性质</th>
@@ -45,7 +45,7 @@ export default {
    async loadList(){
         let res = await axios.post('api/wechat/bg01')
         let { data: { data:list } } = res
-        let msg  = res.data.message;
+        let {data:msg} = res;
         list = JSON.parse(list);
           //  条件判断
            if(res.data.code == 200){
@@ -76,7 +76,7 @@ export default {
 </script>
 <style>
  table{
-   height: 500px;
+   /* height: 500px; */
    width: 100%;
   border-collapse:collapse;
  }
@@ -87,6 +87,12 @@ export default {
  tr,table,th{
    margin: 0;
    padding: 0;
+ }
+ tr{
+   height: 60px;
+ }
+ td{
+  padding-left: 10px;
  }
  .active{
     background:#f5f7fa;

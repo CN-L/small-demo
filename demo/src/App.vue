@@ -4,10 +4,17 @@
     <!-- 注册事件 -->
     <num @numchange="handlechange" :count="n"></num>
     {{n}}
+
+    <hr>
+    <com-a></com-a>
+    <hr>
+    <com-b></com-b>
   </div>
 </template>
 
 <script>
+import comA from '@/components/componentA'
+import comB from '@/components/componentB'
 // 局部注册 引入子组件
 import Num from '@/components/Num';
 export default {
@@ -17,7 +24,9 @@ export default {
     }
   },
   components:{
-    Num
+    Num,
+    comA,
+    comB
   },
   methods:{
     // 接收子组件的传值

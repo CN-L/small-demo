@@ -20,7 +20,7 @@ var list = [{
     age:300,
     school:"孔子学院"
 },{
-    name:"李双枪",
+    name:"李小枪",
     age:40,
     school:"西南联合大学"
 }

@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+    <div id="app">{{num}}
+        <button @click="handleClick(num)">点击一下</button>
+    </div>
+    <script>
+       new Vue({
+           el:'#app',
+           data(){
+               return{
+                   num:14
+               }
+           },
+           methods:{
+               handleClick(numAdd){
+                   console.log(numAdd+"说明data函数中的数据可以直接当作参数用")
+               }
+           }
+       })
+    </script>
+</body>
+</html>

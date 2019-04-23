@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <style>
+        .box{
+            height: 100px;
+            width: 100px;
+            border: 1px solid mediumspringgreen;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<button id="btn">点击切换</button>
+ <div class="box"></div>
+<script>
+    var flag = false;
+    $('#btn').on('click',function(){
+        if(flag == false){
+            $('.box').show()
+            flag = true;
+        }else{
+            $('.box').hide()
+            flag = false;
+        }
+    })
+</script>
+</body>
+</html>

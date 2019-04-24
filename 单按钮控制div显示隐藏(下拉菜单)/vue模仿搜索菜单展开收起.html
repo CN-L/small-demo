@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        /*输入框*/
+        input{
+            width: 60px;
+            margin-left: 10px;
+        }
+        span{
+            margin-left: 10px;
+        }
+        /*父盒子*/
+        #app{
+            margin: 0 auto;
+            height: 300px;
+            width: 300px;
+            border: 1px aqua solid ;
+        }
+        /*搜索按钮*/
+        .search{
+            margin: 0 auto;
+            height: 20px;
+            margin-top:10px;
+            line-height: 20px;
+            width: 60px;
+            background-color: aqua;
+            font-size: 12px;
+            text-align: center;
+            border: 1px solid green;
+            border-radius: 3px;
+        }
+        /*底部操作按钮*/
+        .footer{
+            text-align: center;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+        /*区别搜索按钮t*/
+       .search1{
+           margin-top: 20px;
+           background-color: green;
+       }
+        .footer p{
+            color: blue;
+        }
+        .footer p:hover{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!--默认显示-->
+        <span>姓名:</span><input type="text">  <span>住址：</span><input type="text">
+        <br>
+        <span>年龄:</span><input type="text">  <span>学校：</span><input type="text">
+        <div @click="handleClick" class="search" v-show ="!showAll">点击搜索</div>
+           <!--动态生成 根据状态是否以下内容-->
+        <div v-show="showAll">
+            <span>婚配:</span><input type="text"> <span>专业：</span><input type="text">
+            <div @click="handleClick" class="search search1">点击搜索</div>
+        </div>
+        <!--最底部 控制状态-->
+        <div class="footer" @click="showAll = !showAll">
+            <p>{{showAll?"收起":"展开" }}</p>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el:"#app",
+            data(){
+                return{
+                    showAll:false//页面显示状态
+                }
+            },
+            watch:{
+                //监听是否发生变化
+                showAll:function (newShowAll,oldShowAll) {
+                    console.log(newShowAll)//新值
+                    console.log(oldShowAll)//旧值
+                }
+            },
+            methods:{
+                // 点击操作
+              handleClick(){
+                  alert("is nothing")
+              }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container {
+            height: 150px;
+            width: 110px;
+            background: #cccc;
+        }
+        .tab{
+            text-align: center;
+            border: 1px solid red;
+            height: 30px;
+            width: 110px;
+            background: skyblue;
+        }
+        .box {
+            display: block;
+            text-align: center;
+        }
+        .active {
+            background: orange;/*选中按钮*/
+        }
+        .current {
+            display: none /*默认全部不显示*/
+        }
+        .box1 {
+            /*display: flex;*/
+            float: left;
+            width: 401px;
+            height: 186px;
+            background-size: 100% 100%;
+        }
+    </style>
+</head>
+<body>
+ <div class="container">
+     <div class="tab active">骆驼</div>
+     <div class="tab">水果</div>
+     <div class="tab">祥子</div>
+     <div class="tab">陆地</div>
+     <div class="tab">天空</div>
+     <div class="box">
+         <div class="box1">我是骆驼</div>
+         <div class="current box1">我是水果</div>
+         <div class="current box1">我是祥子</div>
+         <div class="current box1">我是落地</div>
+         <div class="current box1">我是天空</div>
+     </div>
+ </div>
+ <script>
+   window.onload=function(){
+// 循环设置点击事件
+     var tabs = document.getElementsByClassName('tab')
+     var box1 = document.getElementsByClassName('box1')
+     for (let i = 0;i<tabs.length;i++) {
+       // 存储
+       tabs[i].index = i;
+       console.log('我是存储的', this.index)
+       tabs[i].onclick = function() {
+         for (var j = 0; j < box1.length; j++) {
+           box1[j].classList.add("current"); //循环全部设置不显示
+           tabs[j].classList.remove('active');
+         }
+         //因为this指向当前的tabs[i],因此可以这么调用
+         box1[this.index].classList.remove('current'); //让当前被点击的显示
+         console.log(this)
+         this.classList.add('active'); //将点击的tab选中
+       }
+     }
+   }
+ </script>
+</body>
+</html>

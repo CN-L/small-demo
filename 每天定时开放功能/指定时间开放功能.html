@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+<button id="btn1" disabled>禁用按钮</button>
+  <div id="box"></div>
+  <script>
+    // new Date(new Date().toLocaleDateString()).getTime()//当前凌晨时间戳
+    //
+    // new Date(new Date().setHours(0, 0, 0, 0)).getTime() //当前凌晨时间戳
+    //
+    // // 或者
+    // new Date().setHours(0, 0, 0, 0)//当前凌晨时间戳
+    $(function(){
+      // 今天下午5时
+      var time1 = new Date(new Date().setHours(17, 0, 0, 0)).getTime()
+      var time2 = new Date(new Date().setHours(18, 36, 0, 0)).getTime()
+      console.log(time1)
+      setInterval(()=>{
+        var time = new Date().getTime() // 当前时间
+        $("#box").html(time)
+        // 进行对比 时间段开启按钮 当前时间处在time1和time2中间则启用 否则禁用
+        if((time<time2)&&(time>time1)) {
+          $("#btn1").attr('disabled',false);
+          console.log('还没禁用')
+        }else {
+          $("#btn1").attr('disabled',true);
+          console.log('应该是禁用掉了')
+        }
+      },1000)
+    })
+  </script>
+</body>
+</html>

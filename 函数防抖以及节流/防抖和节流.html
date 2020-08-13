@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body style="height: 3000px">
+  <div id="box">
+      函数防抖
+  </div>
+  <script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+  <script>
+    let timer; //默认空 不节流
+    // 函数防抖 : 事件被触发后在n秒内函数只执行一次 如果在n秒内再次触发 重新计时
+    function debounce(fnc, wait) {
+       if(timer) {
+         clearTimeout(timer) //是否在n秒内执行 是则清除 重新计时
+        }
+       timer = setTimeout(()=> {
+          fnc.apply(this, arguments)
+        }, wait)
+    }
+   function conduct() {
+      console.log("1")
+    }
+    $(document).scroll(function() {
+      throttle(conduct, 2000);
+    })
+
+
+    // 函数节流 在一段时间内只能执行一次
+    let time1;
+    function throttle(fn, await) {
+      // 如果还在执行中以下代码不执行
+       if(time1) {
+        // 让前面未执行完毕的代码其继续执行 下面的代码不能执行 time1执行完毕就默认位空了 才执行
+        return
+       }
+      time1 = setTimeout(() => {
+        fn.apply(this, arguments)
+        time1 = null
+      }, await)
+    }
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <style type="text/css">
+        body{
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+<div class="box" style="height: 300px;width: 600px;background: yellow;overflow: auto">
+    <div class="child1" style="width: 30px;height: 2000px;background: palevioletred">
+        <p>哈</p>
+        <p>哈</p>
+        <p>哈</p>
+    </div>
+    <div class="child">返回</div>
+</div>
+<script>
+  window.onload = function () {
+    var child = document.getElementsByClassName('child')[0]
+    var box = document.getElementsByClassName('box')[0]
+    box.onscroll=function () {
+      var top= box.scrollTop;
+      console.log(top, '22222');
+    }
+    child.onclick = function() {
+      box.scrollTo(0, Math.max(0, 0));
+    }
+  }
+</script>
+</body>
+</html>

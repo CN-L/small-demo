@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .a {
+            display: flex;
+            background-color: wheat;
+        }
+        .b {
+            flex-grow: 2; /*当父控件还有剩余空间的时候，是否进行放大(grow)其中数值代表的是放大比例，值为0的时候表示不放大；默认不放大*/
+            background: pink;
+            /*flex-shrink：当父控件空间不够的时候，是否进行缩小(shrink)其中数值代表的是与控件大小有关的缩小比例；默认缩小*/
+            /*flex-basis：在分配剩余空间前，自己占位多少*/
+        }
+
+        .c {
+            flex-grow: 1;
+            background: yellow;
+        }
+
+        .d {
+            flex-grow: 4;
+            background: #5daf34;
+        }
+        .e {
+            display: flex;
+            background-color: #0F5DA2;
+            width: 300px;
+        }
+        .f {
+            width: 200px;
+            flex-shrink: 0; /*超过父元素不会缩放比例*/
+            background-color: yellow;
+        }
+        .g {
+            background: pink;
+            flex-shrink: 0; /*超过父元素不会缩放比例*/
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+<div class="a">
+    <div>哈哈</div>
+    <div class="b p">B</div>
+    <div class="c p">C</div>
+    <div class="d p">D</div>
+</div>
+<div class="e">
+    <div class="f">F</div>
+    <div class="g">G</div>
+</div>
+</body>
+</html>

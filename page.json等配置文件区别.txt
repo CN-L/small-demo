@@ -1,0 +1,15 @@
+1.page.json文件记录你项目中所需要的所有模块, 锁定大版本
+但是他只记录你用过npm install方式安装得模块信息，模块所依赖得其他子模块得信息不会记录
+node不会自动更新package.json,只能通过npm install packageName@x.x.x（指定版本号）进行安装才会更新
+package-lock.json文件版本也会随之更新
+
+2.package-lock.json 文件锁定所有模块得版本号，包括了主模块和所有依赖子模块
+执行npm install时候先从page.json文件中获取模块名称，再从page-lock.json中获取版本号
+
+3.以上两个文件都不在得时候，运行npm install会重新生成package-lock.json 
+不会生成page.json  可以通过npm init --yes 生成初始化文件page.json
+
+devDependencies和dependencies区别
+1. devDependencies用于本地环境开发时候。
+2. dependencies用户发布环境
+3. dependencies依赖的包不仅开发环境能使用，生产环境也能使用

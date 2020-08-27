@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <style>
+        /*滚动条*/
+        .test-5::-webkit-scrollbar {
+            /*滚动条整体样式*/
+            width : 10px;  /*高宽分别对应横竖滚动条的尺寸*/
+            height: 1px;
+        }
+        .test-5::-webkit-scrollbar-thumb {
+            /*滚动条里面小方块*/
+            border-radius   : 10px;
+            background-color: skyblue;
+            background-image: -webkit-linear-gradient(
+                    45deg,
+                    rgba(255, 255, 255, 0.2) 25%,
+                    transparent 25%,
+                    transparent 50%,
+                    rgba(255, 255, 255, 0.2) 50%,
+                    rgba(255, 255, 255, 0.2) 75%,
+                    transparent 75%,
+                    transparent
+            );
+        }
+        .test-5::-webkit-scrollbar-track {
+            /*滚动条里面轨道*/
+            box-shadow   : inset 0 0 5px rgba(0, 0, 0, 0.2);
+            background   : #ededed;
+            border-radius: 10px;
+        }
+        .test-1::-webkit-scrollbar {
+            /*滚动条整体样式*/
+            width : 10px;  /*高宽分别对应横竖滚动条的尺寸*/
+            height: 1px;
+        }
+        .test-1::-webkit-scrollbar-thumb {
+            /*滚动条里面小方块*/
+            border-radius: 10px;
+            box-shadow   : inset 0 0 5px rgba(0, 0, 0, 0.2);
+            background   : #C0C4CC;
+        }
+        .test-1::-webkit-scrollbar-track {
+            /*滚动条里面轨道*/
+            box-shadow   : inset 0 0 5px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            background   : #ededed;
+        }
+        .active {
+            color: #409EFF;
+        }
+    </style>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<div id="app">
+    <el-dialog title="请选择任务类型" center :visible.sync="dialog1" width="800px">
+        <div v-if="invoiceList.length > 0" style="display: flex;">
+            <div class="test-1" style="flex: 0 0 200px;height: 400px;overflow-y: auto;">
+                <div style="margin-bottom:40px;font-weight: 700;font-size: 16px" :class="active === index ? 'active' : ''" v-for="(item, index) in invoiceList" @click="tabselect(index)" :key="index">{{item.rootName}}</div>
+            </div>
+            <div class="test-1" style="height: 400px;margin-left:20px;overflow-y: auto;box-sizing: border-box;padding-bottom: 30px;width: 100%">
+                <div v-for="(it, index) in activeList.taxItems" :key="index" style="margin-bottom: 20px">
+                    <el-radio-group v-model="ruleForm.taxId">
+                <span style="display: block">
+                  <el-radio :label="it.id"><strong>{{it.name}}</strong></el-radio>
+                </span>
+                    </el-radio-group>
+                    <div style="margin-left:24px;">{{it.rootName}}{{it.name}}</div>
+                </div>
+            </div>
+        </div>
+        <span slot="footer" class="dialog-footer">
+         <el-button size="mini" @click="dialog1 = false">取 消</el-button>
+         <el-button size="mini" v-if="invoiceList.length > 0" type="primary" @click="tapConfirm">确 定</el-button>
+        </span>
+    </el-dialog>
+</div>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                dialog1: true,
+                active: 0,
+                invoiceList: [
+                  {
+                    "rootName": "*现代服务*",
+                    "taxItems": [
+                      {
+                        "id": 25,
+                        "version": 0,
+                        "name": "经纪服务费",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*现代服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 26,
+                        "version": 0,
+                        "name": "信息服务费",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*现代服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1116,
+                        "version": 0,
+                        "name": "互联网营销推广众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*现代服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1117,
+                        "version": 0,
+                        "name": "客户推介众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*现代服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1118,
+                        "version": 0,
+                        "name": "市场营销推广众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*现代服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1119,
+                        "version": 0,
+                        "name": "网络推广众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*现代服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1120,
+                        "version": 0,
+                        "name": "硬件设备维护保养众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*现代服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1121,
+                        "version": 0,
+                        "name": "网络代驾众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*现代服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1122,
+                        "version": 0,
+                        "name": "零工任务众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*现代服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1123,
+                        "version": 0,
+                        "name": "互联网众包闪送服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*现代服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1140,
+                        "version": 0,
+                        "name": "互联网营销推广众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*现代服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1141,
+                        "version": 0,
+                        "name": "客户推介众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*现代服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1142,
+                        "version": 0,
+                        "name": "市场营销推广众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*现代服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1143,
+                        "version": 0,
+                        "name": "网络推广众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*现代服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1144,
+                        "version": 0,
+                        "name": "硬件设备维护保养众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*现代服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1145,
+                        "version": 0,
+                        "name": "网络代驾众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*现代服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1146,
+                        "version": 0,
+                        "name": "零工任务众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*现代服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1147,
+                        "version": 0,
+                        "name": "互联网众包闪送服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*现代服务*",
+                        "remark": ""
+                      }
+                    ]
+                  },
+                  {
+                    "rootName": "*测试类目不予开票*",
+                    "taxItems": [
+                      {
+                        "id": 1029,
+                        "version": 0,
+                        "name": "测试发票项勿选！！！",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*测试类目不予开票*",
+                        "remark": ""
+                      }
+                    ]
+                  },
+                  {
+                    "rootName": "*研发和技术服务*",
+                    "taxItems": [
+                      {
+                        "id": 1030,
+                        "version": 0,
+                        "name": "产品研发众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*研发和技术服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1031,
+                        "version": 0,
+                        "name": "工程技术众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*研发和技术服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1126,
+                        "version": 0,
+                        "name": "产品研发众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*研发和技术服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1127,
+                        "version": 0,
+                        "name": "工程技术众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*研发和技术服务*",
+                        "remark": ""
+                      }
+                    ]
+                  },
+                  {
+                    "rootName": "*信息技术服务*",
+                    "taxItems": [
+                      {
+                        "id": 1032,
+                        "version": 0,
+                        "name": "业务流程优化管理众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*信息技术服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1033,
+                        "version": 0,
+                        "name": "平台信息技术服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*信息技术服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1034,
+                        "version": 0,
+                        "name": "信息系统增值服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*信息技术服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1128,
+                        "version": 0,
+                        "name": "业务流程优化管理众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*信息技术服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1129,
+                        "version": 0,
+                        "name": "平台信息技术服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*信息技术服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1130,
+                        "version": 0,
+                        "name": "信息系统增值服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*信息技术服务*",
+                        "remark": ""
+                      }
+                    ]
+                  },
+                  {
+                    "rootName": "*其他咨询服务*",
+                    "taxItems": [
+                      {
+                        "id": 1114,
+                        "version": 0,
+                        "name": "健康管理咨询众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*其他咨询服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1133,
+                        "version": 0,
+                        "name": "软件设计咨询众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*其他咨询服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1134,
+                        "version": 0,
+                        "name": "产品设计咨询众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*其他咨询服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1135,
+                        "version": 0,
+                        "name": "BIM软件咨询服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*其他咨询服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1136,
+                        "version": 0,
+                        "name": "商务信息咨询众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*其他咨询服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1137,
+                        "version": 0,
+                        "name": "风险管理咨询众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*其他咨询服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1138,
+                        "version": 0,
+                        "name": "健康管理咨询众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*其他咨询服务*",
+                        "remark": ""
+                      }
+                    ]
+                  },
+                  {
+                    "rootName": "*广播影视服务*",
+                    "taxItems": [
+                      {
+                        "id": 1115,
+                        "version": 0,
+                        "name": "拍摄及制作众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*广播影视服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1139,
+                        "version": 0,
+                        "name": "拍摄及制作众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*广播影视服务*",
+                        "remark": ""
+                      }
+                    ]
+                  },
+                  {
+                    "rootName": "*文化服务*",
+                    "taxItems": [
+                      {
+                        "id": 1124,
+                        "version": 0,
+                        "name": "互联网文化创意众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*文化服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1148,
+                        "version": 0,
+                        "name": "互联网文化创意众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*文化服务*",
+                        "remark": ""
+                      }
+                    ]
+                  },
+                  {
+                    "rootName": "*非学历教育服务*",
+                    "taxItems": [
+                      {
+                        "id": 1125,
+                        "version": 0,
+                        "name": "培训众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*非学历教育服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1149,
+                        "version": 0,
+                        "name": "培训众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*非学历教育服务*",
+                        "remark": ""
+                      }
+                    ]
+                  },
+                  {
+                    "rootName": "*设计服务*",
+                    "taxItems": [
+                      {
+                        "id": 1131,
+                        "version": 0,
+                        "name": "产品方案设计众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*设计服务*",
+                        "remark": ""
+                      },
+                      {
+                        "id": 1132,
+                        "version": 0,
+                        "name": "专业设计众包服务",
+                        "enterpriseID": 45,
+                        "status": 1,
+                        "rootName": "*设计服务*",
+                        "remark": ""
+                      }
+                    ]
+                  }
+                ],
+                ruleForm: {},
+                activeList: []
+            }
+        },
+        methods: {
+            tapConfirm() {
+                let { taxItems } = this.activeList
+                taxItems.map(item => {
+                    if (item.id === this.ruleForm.taxId) {
+                        this.ruleForm.type = `${item.rootName}${item.name}`
+                    }
+                })
+                this.dialog1 = false
+            },
+            tabselect(index) {
+                if (this.invoiceList.length > 0) {
+                    this.active = index
+                    this.activeList = this.invoiceList[this.active]
+                } else {
+                    this.activeList = []
+                }
+            },
+        },
+        mounted() {
+          this.tabselect(0)
+        }
+    })
+</script>
+</body>
+</html>

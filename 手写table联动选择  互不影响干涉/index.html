@@ -63,7 +63,8 @@
 <!-- 引入组件库 -->
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 <div id="app">
-    <el-dialog title="请选择任务类型" center :visible.sync="dialog1" width="800px">
+    <el-input @click.native="workType" readonly v-model="ruleForm.type" placeholder="请填写任务类型" style="width: 100%"></el-input>
+    <el-dialog title="请选择任务类型" center :visible.sync="dialog1" width="800px" :before-close="cancalTap">
         <div v-if="invoiceList.length > 0" style="display: flex;">
             <div class="test-1" style="flex: 0 0 200px;height: 400px;overflow-y: auto;">
                 <div style="margin-bottom:40px;font-weight: 700;font-size: 16px" :class="active === index ? 'active' : ''" v-for="(item, index) in invoiceList" @click="tabselect(index)" :key="index">{{item.rootName}}</div>
@@ -80,7 +81,7 @@
             </div>
         </div>
         <span slot="footer" class="dialog-footer">
-         <el-button size="mini" @click="dialog1 = false">取 消</el-button>
+         <el-button size="mini" @click="cancalTap">取 消</el-button>
          <el-button size="mini" v-if="invoiceList.length > 0" type="primary" @click="tapConfirm">确 定</el-button>
         </span>
     </el-dialog>
@@ -90,8 +91,9 @@
         el: '#app',
         data() {
             return {
-                dialog1: true,
+                dialog1: false,
                 active: 0,
+                oldTaxId: '',
                 invoiceList: [
                   {
                     "rootName": "*现代服务*",
@@ -539,10 +541,34 @@
                 activeList: []
             }
         },
-        methods: {
+      computed: {
+        totalInvoiceList() {
+          let result = [...this.invoiceList]
+          let result1 = []
+          result.map(item => {
+            result1.push(...item.taxItems)
+          })
+          return result1
+        }
+      },
+      methods: {
+        /*点击取消或者关闭图标 对比是否更改id 更改了就还原id 避免出现任务类型不变 id变动的情况*/
+        cancalTap() {
+          this.dialog1 = false
+          if (this.oldTaxId !== this.ruleForm.taxId) {
+            this.ruleForm.taxId = this.oldTaxId
+          }
+        },
+            workType() {
+              this.oldTaxId = this.ruleForm.taxId //记录旧值
+              if (this.invoiceList.length < 0) {
+                this.$message.error('暂无任务类型')
+                return false
+              }
+              this.dialog1 = true
+        },
             tapConfirm() {
-                let { taxItems } = this.activeList
-                taxItems.map(item => {
+                this.totalInvoiceList.map(item => {
                     if (item.id === this.ruleForm.taxId) {
                         this.ruleForm.type = `${item.rootName}${item.name}`
                     }
@@ -558,9 +584,9 @@
                 }
             },
         },
-        mounted() {
-          this.tabselect(0)
-        }
+      mounted() {
+        this.tabselect(0)
+      }
     })
 </script>
 </body>

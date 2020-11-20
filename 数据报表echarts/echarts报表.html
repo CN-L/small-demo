@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        html,body, #box {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script>
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('box'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        //标题组件
+        title: {
+            id: '',
+            text: '标题',
+            subtext: '副标题',
+            show: true, //是否展示标题
+            triggerEvent: false, //是否触发事件
+            itemGap: 15, //主副标题之间的间距
+            textAlign: 'left', //包括text和subText
+            textVerticalAlign: 'middle', //包括text和subText
+            left: 50, //标题位置
+            target: 'blank', //新窗口打开
+            // link: '' 标题链接
+            textStyle: { //标题样式 可使用富文本 富文本样式在rich中写
+                fontSize: 16,
+                color: 'pink',
+                fontWeight: 'bold'
+            },
+            subtextStyle: {
+                // align: 'center',
+            } //副标题样式
+        },
+        tooltip: {},
+        legend: { //图例组件 可以控制哪些显示哪些不显示
+            type: 'plain', //普通图例或可滚动图例scroll
+            show: true, //是否展示图例
+            align:'right', //图例和文本的对齐方式
+            right: 100,
+            data:[ //图例数组 优先级大于series中的name
+                {
+                    name: '系列1',
+                },
+                {
+                    name: '系列2',
+                    textStyle: {
+                        color: 'black'
+                    },
+                    // 强制设置图形为圆。
+                    icon: 'circle',
+                }
+            ], //图例名称
+            formatter: 'Legend {name}', //格式化文本 可使用回调函数或模板字符串 相当于加工了data里图例名称
+            selectedMode: true, //是否通过点击控制图例显示与隐藏
+            //默认选中状态
+            selected: {
+                // 选中'系列1'
+                '系列1': true,
+                // 不选中'系列2'
+                '系列2': true
+            },
+            icon: 'diamond',
+            //图例公用文本样式
+            textStyle: {
+                color: 'green',
+                inactiveColor: '#ccc', //关闭时背景色
+                backgroundColor: { //文字框背景色
+                    // image: ''
+                    // 这里可以是图片的 URL，
+                    // 或者图片的 dataURI，
+                    // 或者 HTMLImageElement 对象，
+                    // 或者 HTMLCanvasElement 对象。
+                }
+            }
+        },
+        tooltip: {
+          show: true
+        },
+        xAxis: { //横坐标设置
+            name: 'x轴测试',
+            type: 'category',
+            show: true,
+            axisLine: {
+              show: false, //是否显示坐标轴轴线
+            },
+            axisTick: {
+                alignWithLabel:true, //类目轴中在 boundaryGap 为 true 的时候有效
+                show: false //是否显示坐标轴刻度
+            },
+            nameTextStyle: {
+              color: 'red'
+            },
+            //类目轴数据 在类目轴（type: 'category'）中有效。
+            data: [{
+                value:'汽车',
+                textStyle: {
+                    color: 'red',
+                    fontSize: 18
+                }
+
+            },"羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+        },
+        yAxis: {},
+        series: [{
+            name: '系列2',
+            type: 'line', //折线图
+            data: [5, 20, 36, 10, 10, 20]
+        },{
+          label: {
+            show: true, //每个点得数据知否展示 以及位置
+            position: 'right'
+          },
+            /*itemStyle: {//鼠标移入样式 文字大小
+                normal: {
+                    label: {
+                        show: true, //开启显示
+                        position: 'top', //在上方显示
+                        textStyle: { //数值样式
+                            color: 'black',
+                            fontSize: 16
+                        }
+                    }
+                }
+            },*/
+          showSymbol: true, //控制是否展示symbol
+          symbol:'arrow', //鼠标移入节点时显示图标的icon
+            name: '系列1',
+            type: 'line',
+            data: [50, 10, 36, 90, 200, 20]
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+</body>
+</html>

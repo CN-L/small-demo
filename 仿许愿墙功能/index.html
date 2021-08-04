@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>许愿墙</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        html, body, #box {
+            height: 100%;
+            width: 100%;
+        }
+        #box {
+            background: url(./img/bg.gif) repeat center 36px;
+        }
+        .content {
+            position: relative;
+            font-size: 12px;
+            margin: 0 auto;
+            background: url(./img/content_bg.jpg) no-repeat top center;
+            height: 672px;
+            width: 960px;
+        }
+        .tip {
+            position: absolute;
+            top: 30px;
+            left: 100px;
+        }
+        .tip_a {
+            display: flex;
+            width: 227px;
+            padding-top: 45px;
+            height: 23px;
+            align-items: center;
+            cursor: move;
+            background: url(./img/tip1_h.gif) no-repeat;
+        }
+        .tip_a_left {
+            box-sizing: border-box;
+            font-size: 12px;
+            flex: 0 0 200px;
+            margin-left: 5px;
+        }
+        .tip_b {
+            box-sizing: border-box;
+            padding: 0 17px 0 12px;
+            background: url(./img//tip1_c.gif) repeat left top;
+            width: 227px;
+            min-height: 40px;
+            text-align: left;
+            font-size: 12px;
+            line-height: 20px;
+            max-height: 160px;
+            word-wrap: break-word;
+            word-break: break-all;
+            overflow: hidden;
+        }
+        .tip_c {
+            display: flex;
+            background: url(./img/tip1_f.gif) no-repeat;
+            justify-content: space-between;
+            width: 227px;
+            height: 53px;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<script src="./jquery-1.12.4.min.js"></script>
+<script>
+    $(function() {
+        console.log('执行')
+        var datas = [
+      {"id": 1, "name": "mahu", "content": "今天你拿苹果支付了么", "time": "2016-02-17 01:01:01"},
+      {"id": 2, "name": "haha", "content": "今天天气不错，风和日丽的", "time": "2016-02-18 12:30:00"},
+      {"id": 3, "name": "jjjj", "content": "常要说的事儿是乐生于苦", "time": "2016-03-18 02:40:00"},
+      {"id": 4, "name": "9.8的妹纸", "content": "把朋友家厕所拉堵了 不敢出去 掏了半小时了都", "time": "2016-06-18 04:20:00"},
+      {"id": 5, "name": "雷锋ii.", "content": "元宵节快乐", "time": "2016-02-22 12:40:00"},
+      {"id": 6, "name": "哎呦哥哥.", "content": "据说今晚央视的元宵晚会导演和春晚导演是同一个人，真是躲得过初一，躲不过十五。", "time": "2016-02-22 01:30:00"},
+      {"id": 7,"name": "没猴哥，不春晚","content": "班主任:“小明，你都十二岁了，还是三年级，不觉得羞愧吗”不觉得，老师你都四十多岁了，不也是年年在三年级混日子吗？羞愧的应该是你”。老师:……","time": "2016-01-05 21:13:00"
+      },
+      {"id": 8, "name": "哎呦杰杰.", "content": "真搞不懂你们地球人，月亮有什么好看的，全是坑，还是对面那哥们好看，", "time": "2016-08-01 06:10:00"},
+      {"id": 9, "name": "哎呦哎呦", "content": "今天哪里的烟花最好看！！？答：朋友圈。。。", "time": "2016-02-22 02:30:00"}
+    ];
+    var $tips = $('.tip')
+    var $newTips;
+    var $content = $('.content');
+    var zIndex = 0;
+    datas.map((item, index) => {
+        $newTips = $tips.clone()
+        console.log($newTips) //克隆节点
+        $newTips.eq(0).children().eq(0).children().eq(0).text('第['+item.id+']'+ item.time)
+        $newTips.eq(0).children().eq(1).text(item.content)
+        $newTips.eq(2).children().eq(1).text(item.name)
+        $newTips.css({
+            left: Math.random() * 760,
+            top : Math.random() * 400
+        })
+        .click(function () {
+        zIndex++;
+        $(this).css('zIndex', zIndex);
+      })
+      .children().eq(0).dblclick(function () {
+        $(this).parent().remove();
+      });
+        $content.append($newTips);
+    })
+    })
+</script>
+<body>
+    <div id="box">
+        <div class="content">
+            <div class="tip">
+                <div class="tip_a" title="双击关闭纸条">
+                    <div class="tip_a_left">第[498567]条 2016-0-07 22:51:30</div>
+                    <div class="tip_a_center" title="关闭纸条">x</div>
+                </div>
+                <div class="tip_b">
+                    希望马上能怀个健康的猴宝宝 祈祷祈祷
+                </div>
+                <div class="tip_c">
+                    <div class="tip_c_icon">
+                        <img src="./img/bpic_1.gif" alt="">
+                    </div>
+                    <div class="tip_c_name">李世民</div>
+                    <div class="tip_c_right"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

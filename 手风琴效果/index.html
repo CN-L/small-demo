@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手风琴特效</title>
+    <style>
+        *, p, li, ol, dl, dd, dt, ul, li {
+            padding: 0;
+            margin: 0;
+            font-style: normal;
+            list-style: none;
+        }
+        html, body, .box {
+            height: 100%;
+            width: 100%;
+        }
+        .box {
+            width: 1200px;
+            height: 460px;
+            overflow: hidden;
+            position: relative;
+            margin: 100px auto 0 auto;
+        }
+        .child {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+    </style>
+</head>
+<script src="./jquery-1.12.4.min.js"></script>
+<script src="./animate.js"></script>
+<script>
+    $(function(){
+        let totalLength = $('.child').length
+        for ( var i = 0; i <totalLength; i++){
+                $('.child').eq(i).css({
+                background: 'url'+'('+'./images/'+ (i+1)+'.jpg'+') no-repeat',
+                left: i * 240,
+                height: 460,
+                width: 800
+            })
+            $('.child')[i].xiaBiao = i;
+            $('.child').eq(i).mouseover(function() {
+                for (let j = 0; j < totalLength; j++) {
+                // 分组设置运动
+                console.log(this.xia)
+                if (j <= this.xiaBiao) {
+                //规律 当前图片之前和当前图片据左侧 是i的下表*100
+                // 而在当前照片之后的 应该是我当前图片为800px left已经包含了100px 800-100为700px
+                animate($('.child')[j], j * 100);
+                } else{
+                    animate($('.child')[j], j * 100 + 700)
+                }
+            }
+            })
+            }
+            $('.child').mouseleave(function() {
+                for (var k = 0; k < totalLength; k++) {
+                    animate($('.child')[k], k * 240);
+                }
+            })
+})
+</script>
+<body>
+    <div class="box">
+        <div class="child"></div>
+        <div class="child"></div>
+        <div class="child"></div>
+        <div class="child"></div>
+        <div class="child"></div>
+    </div>
+    
+    
+</body>
+</html>

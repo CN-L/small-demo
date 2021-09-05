@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/css.css">
+    <script src="./jquery-1.12.4.min.js"></script>
+</head>
+<body>
+    <script>
+        //思想
+        //例如: 1 2 3 4 5轮播图；向右移相当于 5 1 2 3 4(将最后1个放在了开始)
+        //向左移 1 2 3 4 5变成了2 3 4 5 1（第1个移动到了最后）
+        $(function() {
+            var config = [
+                {
+                    width: 400,
+                    top: 20,
+                    left: 100,
+                    opacity: 0.2,
+                    zIndex: 2
+                },
+                {
+                    width: 600,
+                    top: 70,
+                    left: 0,
+                    opacity: 0.8,
+                    zIndex: 3
+                },
+                {
+                    width: 800,
+                    top: 100,
+                    left: 200,
+                    opacity: 1,
+                    zIndex: 4
+                },
+                {
+                    width: 600,
+                    top: 70,
+                    left: 600,
+                    opacity: 0.8,
+                    zIndex: 3
+                },
+                {
+                    width: 400,
+                    top: 20,
+                    left: 750,
+                    opacity: 0.2,
+                    zIndex: 2
+                }
+            ]
+            var imgs = $('img')
+            $('.left').click(function() {
+                config.unshift(config.pop())
+                changePos()
+            })
+
+            $('.right').click(function() {
+                config.push(config.shift())
+                changePos()
+            })
+            $('.content').mouseenter(function() {
+                $('.left, .right').animate({opacity: 1})
+            })
+            $('.content').mouseleave(function() {
+                $('.left, .right').animate({opacity: 0})
+            })
+            changePos()
+            function changePos() {
+            for (var i = 0; i < config.length; i++) {
+                imgs.eq(i).animate(config[i]);
+            }
+            
+        }
+        })
+    </script>
+    <div id="box">
+        <div class="content">
+            <div class="left"></div>
+            <div class="swiper">
+                <img src="./img/slidepic1.jpg" alt="">
+                <img src="./img/slidepic2.jpg" alt="">
+                <img src="./img/slidepic3.jpg" alt="">
+                <img src="./img/slidepic4.jpg" alt="">
+                <img src="./img/slidepic5.jpg" alt="">
+            </div>
+            <div class="right"></div>
+        </div>
+    </div>
+</body>
+</html>

@@ -15,7 +15,10 @@
         }
         .box p {
             overflow: hidden;
+            text-overflow: ellipsis;
             display: -webkit-box;
+            -webkit-box-orient: vertical;
+            word-break: break-all; /*允许在单词内换行*/
             -webkit-line-clamp: 2; /*第几行开始折行*/
             -webkit-box-orient: vertical;
         }

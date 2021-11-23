@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2113">
+  <style type="text/css">
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    .bg {
+      height: 720px;
+      width: 100%;
+      background-image: url('./bg.jpg');
+      background-repeat: repeat-x;
+      background-position: right;
+      float: left;
+      position: relative;
+      animation-name: bg;
+      animation-duration: 15s;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+    /* 唐僧 */
+    .ts {
+      height: 200px;
+      width: 170px;
+      float: left;
+      position: absolute;
+      top: 400px;
+      left: 600px;
+      background-image: url(./tangMonk.png);
+      animation-name: ts;
+      animation-duration: 1s;
+      animation-timing-function: steps(7, end);
+      animation-iteration-count: infinite;
+    }
+    /* 悟空 */
+    .wk {
+      height: 180px;
+      width: 170px;
+      float: left;
+      position: absolute;
+      top: 400px;
+      left: 300px;
+      background-image: url(./sunWuKong.png);
+      animation-name: wk;
+      animation-duration: 1s;
+      animation-timing-function: steps(7, end);
+      animation-iteration-count: infinite;
+    }
+    /* 八戒 */
+    .bj {
+      height: 180px;
+      width: 200px;
+      float: left;
+      position: absolute;
+      top: 400px;
+      left: 450px;
+      background-image: url('./baJie.png');
+      animation-name: bj;
+      animation-duration: 1s;
+      animation-timing-function: steps(7, end);
+      animation-iteration-count: infinite;
+    }
+    /* 沙僧 */
+    .ss {
+      height: 200px;
+      width: 200px;
+      float: left;
+      position: absolute;
+      top: 400px;
+      left: 780px;
+      background-image: url('./shaSeng.png');
+      animation-name: ss;
+      animation-duration: 1s;
+      animation-timing-function: steps(7, end);
+      animation-iteration-count: infinite;
+    }
+    @keyframes bg {
+      0% {
+        background-position: 0 0;
+      }
+      100% {
+        background-position: 1900px 0;
+      }
+    }
+    @keyframes ts {
+      0% {
+        background-position: 0 0;
+      }
+      100% {
+        background-position: -1180px 0;
+      }
+    }
+    @keyframes wk {
+      0% {
+        background-position: 0 0;
+      }
+      100% {
+        background-position: -1400px 0;
+      }
+    }
+    @keyframes bj {
+      0% {
+        background-position: 0 0;
+      }
+      100% {
+        background-position: -1400px 0;
+      }
+    }
+    @keyframes ss {
+      0% {
+        background-position: 0 0;
+      }
+      100% {
+        background-position: -1450px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="ts"></div>
+  <div class="wk"></div>
+  <div class="bj"></div>
+  <div class="ss"></div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .outer {
+      width: 510px;
+      height: 340px;
+      border: 1px red solid;
+      margin: 0 auto;
+      position: relative;
+    }
+    .outer div {
+      width: 510px;
+      height: 340px;
+      position: absolute;
+      transform-style: preserve-3d;
+      backface-visibility:hidden;
+      -webkit-backface-visibility:hidden;	/* Chrome 和 Safari */
+      -moz-backface-visibility:hidden; 	/* Firefox */
+      -ms-backface-visibility:hidden; 	/* Internet Explorer */
+      transition: all 2s;
+    }
+    .div1 {
+      transform: rotateY(0);
+      background: url("https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg") no-repeat center center
+    }
+    .div2 {
+      transform:rotateY(180deg);
+      background: url("https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg") no-repeat center center;
+    }
+    .outer:hover .div1 {
+      transform: rotateY(-180deg);
+    }
+    .outer:hover .div2 {
+      transform: rotateY(0);
+    } 
+  </style>
+</head>
+<body>
+  <div class="outer">
+    <div class="div1"></div>
+    <div class="div2"></div>
+  </div>
+</body>
+</html>

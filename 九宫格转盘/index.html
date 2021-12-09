@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <title>Document</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    html,body {
+      height: 100%;
+      width: 100%;
+    }
+    .sudoku {
+      font-size: 0.14rem;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(255, 43, 36, 1);
+      /* background-color: yellow; */
+    }
+    .sudoku-banner {
+      display: block;
+      width: 100%;
+    }
+    .sudoku-jifen {
+      height: 0.14rem;
+      line-height: 0.14rem;
+      color: #fbef4a;
+      font-size: 0.12rem;
+      display: flex;
+      justify-content: space-between;
+      margin: 0.16rem 0.32rem;
+  }
+  .sudoku-turntable {
+    height: 3.3rem;
+    width: 3.3rem;
+    overflow: hidden;
+    background-size: cover;
+    margin: 0 auto;
+    background-image: url('https://yun.duiba.com.cn/h5/activity/turntable/rect/2.0/image/rect.png?x-oss-process=image/format,webp');
+  }
+  .sudoku-turntable-spot {
+      animation: mymove .5s linear infinite!important;
+      height: 100%;
+      width: 100%;
+      text-align: center;
+      box-sizing: border-box;
+      padding: 0.3rem;
+      background-size: cover;
+      background-image: url('https://yun.duiba.com.cn/h5/activity/turntable/rect/2.0/image/status-1.png?x-oss-process=image/format,webp');
+  }
+  .sudoku-turntable-spot span {
+        position: relative;
+        display: block;
+        height: 2.7rem;
+        margin: 0 auto;
+        width: 2.7rem;
+        border-radius: 0.04rem;
+        overflow: hidden;
+  }
+  .sudoku-turntable-spot-item {
+      position: absolute;
+      height: 0.9rem;
+      width: 0.9rem;
+      box-sizing: border-box;
+  }
+  .sudoku-turntable-spot-start {
+        background-image: url('https://yun.duiba.com.cn/h5/activity/turntable/rect/2.0/image/start.png?x-oss-process=image/format,webp');
+        background-size: cover;
+        box-sizing: border-box;
+        height: 0.9rem;
+        width: 0.9rem;
+        position: absolute;
+        left: 0.9rem;
+        top: 0.9rem;
+        border-bottom: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+      }
+  .sudoku-turntable-spot-item img {
+    height: 0.6rem;
+    width: 0.9rem;
+  }
+  .sudoku-turntable-spot-idx1 {
+        border-bottom: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+      }
+  .sudoku-turntable-spot-idx2 {
+    left: 0.9rem;
+    top: 0;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+  }
+  .sudoku-turntable-spot-idx3 {
+    left: 1.8rem;
+    top: 0;
+    border-bottom: 1px solid #ccc;
+  }
+  .sudoku-turntable-spot-idx4 {
+    left: 1.8rem;
+    top: 0.9rem;
+    border-bottom: 1px solid #ccc;
+  }
+  .sudoku-turntable-spot-idx5 {
+    left: 1.8rem;
+    top: 1.8rem;
+  }
+  .sudoku-turntable-spot-idx6 {
+    border-right: 1px solid #ccc;
+    left: 0.9rem;
+    top: 1.8rem;
+  }
+  .sudoku-turntable-spot-idx7 {
+    border-right: 1px solid #ccc;
+    left: 0;
+    top: 1.8rem;
+  }
+  .sudoku-turntable-spot-idx8 {
+    left: 0;
+    top: 0.9rem;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+  }
+  .sudoku-active {
+    background-color: rgba(0, 0, 0, .2);
+  }
+  @keyframes mymove {
+  0% {
+    background-image: url(https://yun.duiba.com.cn/h5/activity/turntable/rect/2.0/image/status-1.png?x-oss-process=image/format,webp);
+  }
+
+  100% {
+    background-image: url(https://yun.duiba.com.cn/h5/activity/turntable/rect/2.0/image/status-2.png);
+  }
+}
+  </style>
+</head>
+<body>
+  <div id="app" class="sudoku">
+    <img class="sudoku-banner" src="https://yun.duiba.com.cn/h5/activity/turntable/rect/2.0/image/banner.png?x-oss-process=image/format,webp"/>
+    <div class="sudoku-jifen">
+      <div>我的积分： 10</div>
+      <div>没有抽奖机会了</div>
+    </div>
+    <div class="sudoku-turntable">
+      <div class="sudoku-turntable-spot">
+        <span>
+          <div v-for="(item, i) in list" :key="i" :class="['sudoku-turntable-spot-item', 'sudoku-turntable-spot-idx'+(i+1), {'sudoku-active': i === idx}]">
+            <img :src="item.image" alt="">
+            <p>{{item.prize_name}}</p>
+          </div>
+          <div @click="startLottery" class="sudoku-turntable-spot-start"></div>
+      </span>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script>
+    (function (doc, win) {
+    var docEl = doc.documentElement,
+      resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+      recalc = function () {
+        var clientWidth = docEl.clientWidth;
+        console.log(clientWidth)
+        if (!clientWidth) return;
+        if (clientWidth >= 750) {
+          docEl.style.fontSize = '100px';
+        } else {
+          docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+        }
+      };
+    if (!doc.addEventListener) return;
+    win.addEventListener(resizeEvt, recalc, false);
+    doc.addEventListener('DOMContentLoaded', recalc, false);
+    var app = new Vue({
+      el: '#app',
+      data() {
+        return {
+          score: 10, //消耗积分
+      idx: 0, //初始化位置
+      count: 8, // 总共有多少个位置
+      timer: 0, // 每次转动定时器
+      speed: 200, // 初始转动速度
+      moveCurrent: 0, // 记录当前已转动的次数
+      cycle: 50, // 进入抽奖环节所需的最低次数
+      prize: -1, // 中奖位置下标
+      click: true,//标识是否处于抽奖状态
+      showToast: false, //显示中奖弹窗  
+      list: [
+        {
+          id: 1,
+          number: 15,
+          prize_name: "乐豆",
+          image: 'https://yun.duiba.com.cn/upload/fMX9a1460550061033.png'
+        },
+        {
+          id: 2,
+          number: 1,
+          prize_name: "小卡车",
+          image: 'https://yun.duiba.com.cn/upload/HSceZ1460550061158.png'
+        },
+        {
+          id: 3,
+          number: 1,
+          prize_name: "玩具车",
+          image: 'https://yun.duiba.com.cn/upload/fMX9a1460550061033.png'
+        },
+        {
+          id: 4,
+          number: 2,
+          prize_name: "主播签名",
+          image: 'https://yun.duiba.com.cn/upload/HSceZ1460550061158.png'
+        },
+        {
+          id: 5,
+          number: 3,
+          prize_name: "茅台",
+          image:'https://yun.duiba.com.cn/upload/HSceZ1460550061158.png'
+        },
+        {
+          id: 16,
+          number: 9,
+          prize_name: "Q币",
+          image: 'https://yun.duiba.com.cn/upload/fMX9a1460550061033.png'
+        },
+        {
+          id: 20,
+          number: 9,
+          prize_name: "0.001比特币",
+          image: 'https://yun.duiba.com.cn/upload/fMX9a1460550061033.png'
+        },
+        {
+          id: 21,
+          number: 7,
+          prize_name: "Q币",
+          image: 'https://yun.duiba.com.cn/upload/HSceZ1460550061158.png'
+        }
+        ]
+        }
+      },
+      methods: {
+    //抽奖方法
+    startLottery() {
+      if (!this.click) {
+        return
+      }
+      this.startRoll();
+    },
+    startRoll() {
+        this.moveCurrent += 1 // 转动次数
+        this.oneRoll() // 重新计算下标
+        // 如果当前转动次数达到要求 && 目前转到的位置是中奖位置
+        if (this.moveCurrent > this.cycle + 10 && this.prize === this.idx) {
+            console.log(this.moveCurrent, this.cycle + 10, this.prize, this.idx)
+            clearTimeout(this.timer) // 清除转动定时器，停止转动
+            this.prize = -1
+            this.moveCurrent = 0
+            this.speed = 200
+            this.click = true;
+            var that = this;
+            setTimeout(res => {
+                that.showToast = true;
+            }, 500)
+        } else {
+            if (this.moveCurrent < this.cycle) {
+                this.speed -= 10 // 加快转动速度
+            } else if (this.moveCurrent === this.cycle) {
+              console.log('2222')
+                const idx = parseInt(Math.random() * 7, 0) || 0; // 随机获得一个中奖位置
+                this.prize = idx; //中奖位置,可由后台返回 
+            } else if (this.moveCurrent > this.cycle + 10 && ((this.prize === 0 && this.idx === 7) || this.prize === this.idx +
+                    1)) {
+                this.speed += 110
+            } else {
+                this.speed += 20
+            }
+            if (this.speed < 40) {
+                this.speed = 40
+            }
+            this.timer = setTimeout(this.startRoll, this.speed)
+        }
+    },
+     // 每一次转动
+    oneRoll() {
+        let idx = this.idx // 当前转动到哪个位置
+        const count = this.count // 总共有多少个位置
+        idx += 1
+        if (idx > count - 1) {
+            idx = 0
+        }
+        this.idx = idx
+    },
+  }
+      })
+  })(document, window);
+  </script>
+</body>
+</html>

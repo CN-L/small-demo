@@ -17,4 +17,8 @@ console.log(A.__proto__.__proto__ === A.prototype.__proto__) //函数为特殊�
 var b = new A('李世民', 23) //Object类型
 console.log(b.__proto__) //指向构造函数的prototype
 console.log(b.__proto__.constructor) //指向原构造函数 --可用来区分数组和对象
-
+通俗来说：
+1. Js中万物即对象，方法的原型（Function.prototype）是对象，因为，他们都会具有对象共有的特点
+对象有__proto__属性 ，成为隐式原型 ，其指向该对象的构造函数的原型
+2. 方法
+方法是特殊对象，除了__proto__属性外，还有自己的特有属，原型属性（prototype），这个属性是个指针，指向一个对象，这个对象的用途就是包含所有书里共享的属性和方法（我们把它叫做原型对象）。原型对象也有一个属性，叫做constructor，这个属性也爆了一个指针，指回了原构造函数

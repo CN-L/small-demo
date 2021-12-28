@@ -91,3 +91,9 @@ const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme
     
 console.log(isDarkMode) 
 // Result: True or False
+
+// TODO 检测用户是否在apple设备上
+const isAppleDevice = /Mac|iPod|iPhone|iPad/.test(navigator.platform);
+
+console.log(isAppleDevice);
+// true/false

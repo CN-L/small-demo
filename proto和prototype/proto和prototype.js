@@ -22,3 +22,18 @@ console.log(b.__proto__.constructor) //指向原构造函数 --可用来区分�
 对象有__proto__属性 ，成为隐式原型 ，其指向该对象的构造函数的原型
 2. 方法
 方法是特殊对象，除了__proto__属性外，还有自己的特有属，原型属性（prototype），这个属性是个指针，指向一个对象，这个对象的用途就是包含所有书里共享的属性和方法（我们把它叫做原型对象）。原型对象也有一个属性，叫做constructor，这个属性也爆了一个指针，指回了原构造函数
+3. 被构造出对象的 __proto__ 指向 对应 构造函数的 prototype; 原型对象prototype 的 __proto__   指向 Object.prototype;  实例化对象中的 __proto__ 指向 对应构造函数 的 prototype
+/**
+1. let a1 =  20;a1.__proto__ === Number.prototype.  
+2.
+function fn1() {
+ let say = function() {return '233'}
+}
+fn1.prototype.__proto__ === Object.prototype; //true
+3.
+  function Ui(name) {
+    this.name = name
+  }
+  let b = new Ui('李晓龙')
+  console.log(b.__proto__ === Ui.prototype) //true
+*/

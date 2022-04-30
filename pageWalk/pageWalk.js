@@ -2,6 +2,7 @@
 	function UserGuideWalkComp(){
 		this.setTimeOutKey = null;
 		this._index = 0;
+		this.isfirstRender = false;
 		this.$blackOverEl = $('<div id="userGuideBlackGroudId" class="userGuide-BlackGroud-Class" ></div>');//黑幕背景
 		this.$walkContentEl = $('<div id="walkContentId"  class="userGuide-walkContent-Class" ></div>');//引导内容外层DIV(高亮DIV+引导内容DIV)
 		this.$guideContentEl = $('<div id="guideContentId"></div>');//引导内容DIV
@@ -72,8 +73,8 @@
 				return
 			}
 			if(this.setTimeOutKey) {
-				return false
-				// clearInterval(this.setTimeOutKey)
+				clearInterval(this.setTimeOutKey)
+				this.setTimeOutKey = null
 			}
 			let that = this;
 			if(id === 'nextUserGuide') {
@@ -99,6 +100,7 @@
 
 		//引导页
 		showStep : function(){
+			// console.log('xians')
 			//清除之前容器
 			if($("#walkContentId").length){
 				this.$walkContentEl.html("").remove();
@@ -115,8 +117,16 @@
 				var guideInnerEl = $('<div class="guideInner"></div>').html(getContent(step));
 				var guideWay = $('<div class="bottom-way-class"></div>');
 				this.$guideContentEl.addClass("userguid-modal-class");
+				if(this.isfirstRender) {
+				this.$guideContentEl.removeClass("userguid-inner-class").css({
+					left: '50%',
+					top: '25%'
+				})
+				}
+				
 				this.$guideContentEl.html("").append(this.$guideInnerWrapper.html("").append(guideInnerEl)).append(guideWay);
 				$(this.config._element).append(this.$walkContentEl.append(this.$guideContentEl));
+				this.isfirstRender = true
 			}else{
 				if(targetEL === "" || typeof targetEL === "undefined"){
 					return;

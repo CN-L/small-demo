@@ -1,5 +1,5 @@
 .userGuide-BlackGroud-Class{
-	z-index: 9999;
+	  z-index: 9999;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -87,7 +87,7 @@
 	padding: 20px;
 	position: absolute;
 	z-index: 999998;
-	box-shadow: 0 0 1px 10000px rgba(0, 0, 0, 0.6);
+	/* box-shadow: 0 0 1px 10000px rgba(0, 0, 0, 0.6); */
 }
 
 .userGuide-walkContent-Class .highLightDiv > div {

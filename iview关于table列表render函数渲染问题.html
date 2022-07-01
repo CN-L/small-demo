@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ViewUI example</title>
+    <link rel="stylesheet" type="text/css" href="http://unpkg.com/view-design/dist/styles/iview.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.40/esri/css/esri.css">
+    <script type="text/javascript" src="http://unpkg.com/vue@2.6.14/dist/vue.min.js"></script>
+    <script type="text/javascript" src="http://unpkg.com/view-design/dist/iview.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <i-table stripe border ref="selection" :columns="columns4" :data="data1"></i-able>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                columns4: [
+                    {
+                        type: 'selection',
+                        width: 60,
+                        align: 'center'
+                    },
+                    {
+                        title: 'Name',
+                        key: 'name'
+                    },
+                    {
+                        title: 'Age',
+                        key: 'age'
+                    },
+                    {
+                        title: 'Address',
+                        key: 'address'
+                    },
+                    {
+                        title: 'Action',
+                        key: 'action',
+                        fixed: 'right',
+                        width: 150,
+                        render: (h, { row }) => {
+                            return h('div', [
+                                h('span', null, '按钮'),
+                                h('i-switch', {
+                                    style: {
+                                        marginLeft: '5px'
+                                    },
+                                    props: {
+                                        size: 'large',
+                                        value: row.status === 1
+                                    }
+                                }, [
+                                    h('span', {
+                                        slot: 'open'
+                                    }, 'ON' ),
+                                    h('span', {
+                                        slot: 'close'
+                                    }, 'OFF' ),
+                                ])
+                            ])
+                        }
+                         
+                    }
+                ],
+                data1: [
+                    {
+                        name: 'John Brown',
+                        age: 18,
+                        address: 'New York No. 1 Lake Park',
+                        date: '2016-10-03',
+                        status: 1
+                    },
+                    {
+                        name: 'Jim Green',
+                        age: 24,
+                        address: 'London No. 1 Lake Park',
+                        date: '2016-10-01',
+                        status: 0
+                    },
+                    {
+                        name: 'Joe Black',
+                        age: 30,
+                        address: 'Sydney No. 1 Lake Park',
+                        date: '2016-10-02',
+                        status: 0
+                    },
+                    {
+                        name: 'Jon Snow',
+                        age: 26,
+                        address: 'Ottawa No. 2 Lake Park',
+                        date: '2016-10-04',
+                        status: 1
+                    }
+                ]
+
+            }
+           
+        },
+        methods: {
+        }
+    })
+  </script>
+</body>
+</html>

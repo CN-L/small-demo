@@ -267,9 +267,9 @@
             if (this.moveCurrent < this.cycle) {
                 this.speed -= 10 // 加快转动速度
             } else if (this.moveCurrent === this.cycle) {
-              console.log('2222')
                 const idx = parseInt(Math.random() * 7, 0) || 0; // 随机获得一个中奖位置
                 this.prize = idx; //中奖位置,可由后台返回 
+              // 中奖位置距离当前下标只剩1个格子的时候减速
             } else if (this.moveCurrent > this.cycle + 10 && ((this.prize === 0 && this.idx === 7) || this.prize === this.idx +
                     1)) {
                 this.speed += 110
